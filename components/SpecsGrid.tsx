@@ -2,17 +2,31 @@
 
 import { motion } from "framer-motion";
 import { CAR } from "@/data/carData";
-
-const specs = [
-  { val: CAR.performance.power.value, unit: CAR.performance.power.unit, label: CAR.performance.power.label },
-  { val: CAR.performance.topSpeed.value, unit: CAR.performance.topSpeed.unit, label: CAR.performance.topSpeed.label },
-  { val: CAR.performance.acceleration.value, unit: CAR.performance.acceleration.unit, label: CAR.performance.acceleration.label },
-  { val: CAR.performance.torque.value, unit: CAR.performance.torque.unit, label: CAR.performance.torque.label },
-  { val: CAR.performance.acceleration200.value, unit: CAR.performance.acceleration200.unit, label: CAR.performance.acceleration200.label },
-  { val: CAR.performance.revLimit.value, unit: CAR.performance.revLimit.unit, label: CAR.performance.revLimit.label },
-];
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 
 export default function SpecsGrid() {
+  const { lang } = useLanguage();
+  const t = translations[lang].specs;
+
+  const specs = [
+    { val: CAR.performance.power.value, unit: CAR.performance.power.unit, label: t.labels.power },
+    { val: CAR.performance.topSpeed.value, unit: CAR.performance.topSpeed.unit, label: t.labels.topSpeed },
+    { val: CAR.performance.acceleration.value, unit: CAR.performance.acceleration.unit, label: t.labels.acceleration100 },
+    { val: CAR.performance.torque.value, unit: CAR.performance.torque.unit, label: t.labels.torque },
+    { val: CAR.performance.acceleration200.value, unit: CAR.performance.acceleration200.unit, label: t.labels.acceleration200 },
+    { val: CAR.performance.revLimit.value, unit: CAR.performance.revLimit.unit, label: t.labels.revLimit },
+  ];
+
+  const dimLabels: Record<string, string> = {
+    length: t.dimensions.length,
+    width: t.dimensions.width,
+    height: t.dimensions.height,
+    wheelbase: t.dimensions.wheelbase,
+  };
+
+  const [titleLine1, titleLine2] = t.sectionTitle.split("\n");
+
   return (
     <section className="relative py-24 md:py-32 px-8 md:px-16" style={{ background: "#0A0A0A" }}>
       {/* Top border */}
@@ -29,13 +43,13 @@ export default function SpecsGrid() {
           className="text-amg-gold tracking-[0.4em] text-xs uppercase font-semibold mb-3"
           style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
         >
-          Technical Specification
+          {t.sectionLabel}
         </p>
         <h2
           className="text-3xl md:text-5xl font-black text-white"
           style={{ fontFamily: "var(--font-orbitron), sans-serif" }}
         >
-          Numbers That<br />Define Legend
+          {titleLine1}<br />{titleLine2}
         </h2>
       </motion.div>
 
@@ -99,7 +113,7 @@ export default function SpecsGrid() {
               className="text-amg-gold text-[0.6rem] tracking-[0.3em] uppercase"
               style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
             >
-              {key.charAt(0).toUpperCase() + key.slice(1)}
+              {dimLabels[key] ?? key.charAt(0).toUpperCase() + key.slice(1)}
             </p>
             <p
               className="text-white text-base font-semibold"

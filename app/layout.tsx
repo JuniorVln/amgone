@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Orbitron, Rajdhani } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const orbitron = Orbitron({
   variable: "--font-orbitron",
@@ -29,12 +30,12 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="pt"
       className={`${orbitron.variable} ${rajdhani.variable}`}
       style={{ scrollbarWidth: "none" } as React.CSSProperties}
     >
       <body className="bg-amg-black text-white antialiased overflow-x-hidden">
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

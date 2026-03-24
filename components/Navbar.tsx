@@ -2,9 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useLanguage, type Lang } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const { lang, setLang } = useLanguage();
+  const t = translations[lang].nav;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -32,29 +36,55 @@ export default function Navbar() {
         AMG
       </div>
 
-      {/* Center — empty */}
-      <div />
+      {/* Right side: Language selector + CTA */}
+      <div className="flex items-center gap-4">
+        {/* Language selector */}
+        <div
+          className="flex items-center gap-1"
+          style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
+        >
+          {(["pt", "en"] as Lang[]).map((l, i) => (
+            <button
+              key={l}
+              onClick={() => setLang(l)}
+              className="text-xs tracking-[0.2em] uppercase font-semibold transition-colors duration-200 px-1"
+              style={{
+                color: lang === l ? "#D4AF37" : "rgba(192,192,192,0.4)",
+                cursor: lang === l ? "default" : "pointer",
+              }}
+            >
+              {l.toUpperCase()}
+            </button>
+          ))}
+        </div>
 
-      {/* CTA */}
-      <a
-        href="#inquire"
-        className="relative group px-6 py-2 text-xs tracking-[0.25em] uppercase font-semibold transition-all duration-300"
-        style={{
-          fontFamily: "var(--font-rajdhani), sans-serif",
-          border: "1px solid #D4AF37",
-          color: "#D4AF37",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLElement).style.background = "#D4AF37";
-          (e.currentTarget as HTMLElement).style.color = "#0A0A0A";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.background = "transparent";
-          (e.currentTarget as HTMLElement).style.color = "#D4AF37";
-        }}
-      >
-        Inquire
-      </a>
+        {/* Divider */}
+        <div
+          className="w-[1px] h-4"
+          style={{ background: "rgba(212,175,55,0.3)" }}
+        />
+
+        {/* CTA */}
+        <a
+          href="#inquire"
+          className="relative group px-6 py-2 text-xs tracking-[0.25em] uppercase font-semibold transition-all duration-300"
+          style={{
+            fontFamily: "var(--font-rajdhani), sans-serif",
+            border: "1px solid #D4AF37",
+            color: "#D4AF37",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.background = "#D4AF37";
+            (e.currentTarget as HTMLElement).style.color = "#0A0A0A";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.background = "transparent";
+            (e.currentTarget as HTMLElement).style.color = "#D4AF37";
+          }}
+        >
+          {t.inquire}
+        </a>
+      </div>
     </motion.nav>
   );
 }

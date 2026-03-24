@@ -2,8 +2,18 @@
 
 import { motion } from "framer-motion";
 import { CAR } from "@/data/carData";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 
 export default function RecordsSection() {
+  const { lang } = useLanguage();
+  const t = translations[lang].records;
+
+  const otherRecords = CAR.records.slice(1).map((record, i) => ({
+    ...record,
+    note: t.notes[i] ?? record.note,
+  }));
+
   return (
     <section
       className="relative py-24 md:py-36 px-8 md:px-16 overflow-hidden"
@@ -38,13 +48,13 @@ export default function RecordsSection() {
             className="text-amg-gold tracking-[0.4em] text-xs uppercase font-semibold mb-3"
             style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
           >
-            Track Dominance
+            {t.sectionLabel}
           </p>
           <h2
             className="text-3xl md:text-5xl font-black text-white"
             style={{ fontFamily: "var(--font-orbitron), sans-serif" }}
           >
-            Record Breaker
+            {t.sectionTitle}
           </h2>
         </motion.div>
 
@@ -75,14 +85,14 @@ export default function RecordsSection() {
               className="text-amg-gold text-xs tracking-[0.25em] uppercase font-semibold"
               style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
             >
-              Fastest Road-Legal Production Car
+              {t.fastestCar}
             </p>
           </div>
         </motion.div>
 
         {/* Other records */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {CAR.records.slice(1).map((record, i) => (
+          {otherRecords.map((record, i) => (
             <motion.div
               key={record.track}
               initial={{ opacity: 0, y: 20 }}

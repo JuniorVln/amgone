@@ -2,8 +2,13 @@
 
 import { motion } from "framer-motion";
 import { CAR } from "@/data/carData";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 
 export default function EngineSection() {
+  const { lang } = useLanguage();
+  const t = translations[lang].engine;
+
   return (
     <section
       className="relative py-24 md:py-36 px-8 md:px-16"
@@ -24,13 +29,13 @@ export default function EngineSection() {
               className="text-amg-gold tracking-[0.4em] text-xs uppercase font-semibold mb-3"
               style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
             >
-              Power Unit
+              {t.sectionLabel}
             </p>
             <h2
               className="text-3xl md:text-5xl font-black text-white leading-tight"
               style={{ fontFamily: "var(--font-orbitron), sans-serif" }}
             >
-              {CAR.engine.title}
+              {t.title}
             </h2>
           </motion.div>
 
@@ -45,13 +50,13 @@ export default function EngineSection() {
               className="text-amg-silver/80 text-base leading-relaxed"
               style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
             >
-              {CAR.engine.description}
+              {t.description}
             </p>
           </motion.div>
         </div>
 
         <div className="flex flex-col gap-4">
-          {CAR.engine.specs.map((spec, i) => (
+          {t.specs.map((spec, i) => (
             <motion.div
               key={spec}
               initial={{ opacity: 0, x: 20 }}
@@ -89,17 +94,17 @@ export default function EngineSection() {
           className="text-amg-gold tracking-[0.4em] text-xs uppercase font-semibold mb-3"
           style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
         >
-          Aerodynamics
+          {t.aeroLabel}
         </p>
         <h3
           className="text-2xl md:text-4xl font-black text-white mb-8"
           style={{ fontFamily: "var(--font-orbitron), sans-serif" }}
         >
-          {CAR.aero.title}
+          {t.aeroTitle}
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {CAR.aero.features.map((feat, i) => (
+          {t.aeroFeatures.map((feat, i) => (
             <motion.div
               key={feat}
               initial={{ opacity: 0, y: 16 }}

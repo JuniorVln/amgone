@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { MotionValue, useTransform, motion, AnimatePresence } from "framer-motion";
 import { CAR } from "@/data/carData";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 
 interface Props {
   scrollYProgress: MotionValue<number>;
@@ -53,6 +55,9 @@ function AMGMark({ reverse = false }: { reverse?: boolean }) {
 }
 
 function HeroPhase() {
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
   return (
     <motion.div
       key="hero"
@@ -86,7 +91,7 @@ function HeroPhase() {
             className="text-amg-gold tracking-[0.35em] text-xs uppercase font-semibold"
             style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
           >
-            The One and Only
+            {t.hero.tagline}
           </motion.p>
 
           <motion.div {...itemAnim(0.3)} className="mt-1">
@@ -95,7 +100,7 @@ function HeroPhase() {
               className="text-amg-silver text-sm md:text-base leading-relaxed tracking-wide max-w-lg"
               style={{ fontFamily: "var(--font-rajdhani), sans-serif", fontWeight: 400 }}
             >
-              {CAR.hero.description}
+              {t.hero.description}
             </p>
           </motion.div>
         </div>
@@ -114,6 +119,9 @@ function HeroPhase() {
 }
 
 function PerformancePhase() {
+  const { lang } = useLanguage();
+  const t = translations[lang].performance;
+
   return (
     <motion.div
       key="performance"
@@ -134,7 +142,7 @@ function PerformancePhase() {
             className="text-amg-gold tracking-[0.35em] text-xs uppercase font-semibold mt-4"
             style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
           >
-            Pure Performance
+            {t.sectionLabel}
           </motion.p>
 
           <motion.div
@@ -160,7 +168,7 @@ function PerformancePhase() {
                 className="text-amg-silver text-xs tracking-[0.2em] uppercase"
                 style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
               >
-                Electronically Limited
+                {t.electronicallyLimited}
               </span>
             </div>
           </motion.div>
@@ -169,9 +177,9 @@ function PerformancePhase() {
 
           <div className="grid grid-cols-3 gap-6">
             {[
-              { val: "1,063", unit: "HP", label: "System Power" },
-              { val: "2.9", unit: "SEC", label: "0–100 KM/H" },
-              { val: "7.0", unit: "SEC", label: "0–200 KM/H" },
+              { val: "1,063", unit: "HP", label: t.systemPower },
+              { val: "2.9", unit: "SEC", label: t.acceleration100 },
+              { val: "7.0", unit: "SEC", label: t.acceleration200 },
             ].map((item, i) => (
               <motion.div key={item.label} {...itemAnim(0.15 + i * 0.08)} className="flex flex-col gap-1">
                 <div className="flex items-end gap-1">
@@ -217,6 +225,18 @@ function PerformancePhase() {
 }
 
 function EngineeringPhase() {
+  const { lang } = useLanguage();
+  const t = translations[lang].engineering;
+
+  const chassisSpecs = [
+    { label: t.specs.curbWeight, val: CAR.chassis.weight },
+    { label: t.specs.weightDist, val: CAR.chassis.distribution },
+    { label: t.specs.gearbox, val: CAR.chassis.gearbox },
+    { label: t.specs.clutch, val: CAR.chassis.clutch },
+  ];
+
+  const [titleLine1, titleLine2] = t.monocoque.split("\n");
+
   return (
     <motion.div
       key="engineering"
@@ -237,7 +257,7 @@ function EngineeringPhase() {
             className="text-amg-gold tracking-[0.35em] text-xs uppercase font-semibold"
             style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
           >
-            F1 Hybrid Engineering
+            {t.sectionLabel}
           </motion.p>
 
           <motion.h2
@@ -245,7 +265,7 @@ function EngineeringPhase() {
             className="text-3xl md:text-5xl font-black text-white leading-tight"
             style={{ fontFamily: "var(--font-orbitron), sans-serif" }}
           >
-            Carbon<br />Monocoque
+            {titleLine1}<br />{titleLine2}
           </motion.h2>
 
           <motion.div {...itemAnim(0.2)}>
@@ -254,17 +274,12 @@ function EngineeringPhase() {
               className="text-amg-silver/80 text-sm leading-relaxed"
               style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
             >
-              {CAR.chassis.description}
+              {t.chassisDescription}
             </p>
           </motion.div>
 
           <div className="grid grid-cols-2 gap-x-6 gap-y-3 mt-1">
-            {[
-              { label: "Curb Weight", val: CAR.chassis.weight },
-              { label: "Weight Dist.", val: CAR.chassis.distribution },
-              { label: "Gearbox", val: CAR.chassis.gearbox },
-              { label: "Clutch", val: CAR.chassis.clutch },
-            ].map((spec, i) => (
+            {chassisSpecs.map((spec, i) => (
               <motion.div
                 key={spec.label}
                 {...itemAnim(0.27 + i * 0.07)}
@@ -294,10 +309,10 @@ function EngineeringPhase() {
             className="text-amg-gold tracking-[0.35em] text-xs uppercase font-semibold"
             style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
           >
-            Powertrain
+            {t.powertrain}
           </motion.p>
 
-          {CAR.engine.specs.map((spec, i) => (
+          {t.engineSpecs.map((spec, i) => (
             <motion.div key={spec} {...itemAnim(0.17 + i * 0.07)} className="flex items-start gap-3">
               <div className="w-[1px] h-4 bg-amg-gold mt-1 shrink-0" />
               <p
@@ -315,7 +330,7 @@ function EngineeringPhase() {
                 className="text-amg-gold text-[0.6rem] tracking-[0.3em] uppercase mb-2"
                 style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
               >
-                V6 Engine Redline
+                {t.v6Redline}
               </p>
               <div className="flex items-end gap-2">
                 <span
@@ -348,6 +363,9 @@ function EngineeringPhase() {
 }
 
 function ExteriorPhase() {
+  const { lang } = useLanguage();
+  const t = translations[lang].exterior;
+
   return (
     <motion.div
       key="exterior"
@@ -367,7 +385,7 @@ function ExteriorPhase() {
           className="text-amg-gold tracking-[0.35em] text-xs uppercase font-semibold"
           style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
         >
-          Exterior & Interior
+          {t.sectionLabel}
         </motion.p>
 
         <motion.div {...itemAnim(0.16)}>
@@ -375,7 +393,7 @@ function ExteriorPhase() {
             className="text-4xl md:text-6xl font-black text-white leading-tight"
             style={{ fontFamily: "var(--font-orbitron), sans-serif" }}
           >
-            Reduced to<br />the Maximum.
+            {t.titleLine1}<br />{t.titleLine2}
           </div>
         </motion.div>
 
@@ -385,13 +403,13 @@ function ExteriorPhase() {
             className="text-amg-silver/80 text-sm leading-relaxed"
             style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
           >
-            Every line, every surface serves performance.<br />
-            Formula 1 DNA in every detail.
+            {t.descLine1}<br />
+            {t.descLine2}
           </p>
         </motion.div>
 
         <div className="flex flex-col gap-2 mt-1 items-end">
-          {CAR.aero.features.map((feat, i) => (
+          {t.aeroFeatures.map((feat, i) => (
             <motion.div
               key={feat}
               {...itemAnim(0.32 + i * 0.07)}
@@ -421,7 +439,6 @@ function ExteriorPhase() {
 }
 
 export default function AMGExperience({ scrollYProgress }: Props) {
-  // Maps each 25% of scroll to exactly one phase: 0→0, 0.25→1, 0.5→2, 0.75→3, 1→4 (capped at 3)
   const phase = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 1, 2, 3, 4]);
   const [currentPhase, setCurrentPhase] = useState(0);
 

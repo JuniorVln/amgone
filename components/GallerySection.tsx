@@ -2,41 +2,27 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 
-const galleryImages = [
-  {
-    src: "/images/gallery/AMG - One 01.avif",
-    alt: "Mercedes-AMG ONE Front View",
-    aspect: "landscape",
-  },
-  {
-    src: "/images/gallery/AMG - One 02.avif",
-    alt: "Mercedes-AMG ONE Detail",
-    aspect: "landscape",
-  },
-  {
-    src: "/images/gallery/AMG One.jpeg",
-    alt: "Mercedes-AMG ONE Side Profile",
-    aspect: "landscape",
-  },
-  {
-    src: "/images/gallery/I_want_the_202603232139.png",
-    alt: "Mercedes-AMG ONE Cockpit",
-    aspect: "landscape",
-  },
-  {
-    src: "/images/gallery/I_want_the_202603232140.png",
-    alt: "Mercedes-AMG ONE Engine",
-    aspect: "landscape",
-  },
-  {
-    src: "/images/gallery/58a399091751658ca3682b5c40da60703b6d780f-1920x1079.jpg",
-    alt: "Mercedes-AMG ONE Dynamic",
-    aspect: "landscape",
-  },
+const gallerySrcs = [
+  "/images/gallery/AMG - One 01.avif",
+  "/images/gallery/AMG - One 02.avif",
+  "/images/gallery/AMG One.jpeg",
+  "/images/gallery/I_want_the_202603232139.png",
+  "/images/gallery/I_want_the_202603232140.png",
+  "/images/gallery/58a399091751658ca3682b5c40da60703b6d780f-1920x1079.jpg",
 ];
 
 export default function GallerySection() {
+  const { lang } = useLanguage();
+  const t = translations[lang].gallery;
+
+  const galleryImages = gallerySrcs.map((src, i) => ({
+    src,
+    alt: t.images[i] ?? src,
+  }));
+
   return (
     <section className="relative py-24 px-8 md:px-16" style={{ background: "#0D0D0D" }}>
       <div className="h-[1px] w-full mb-16" style={{ background: "linear-gradient(90deg, transparent, #D4AF37, transparent)", opacity: 0.25 }} />
@@ -52,13 +38,13 @@ export default function GallerySection() {
           className="text-amg-gold tracking-[0.4em] text-xs uppercase font-semibold mb-3"
           style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
         >
-          Visual Archive
+          {t.sectionLabel}
         </p>
         <h2
           className="text-3xl md:text-5xl font-black text-white"
           style={{ fontFamily: "var(--font-orbitron), sans-serif" }}
         >
-          The Machine
+          {t.sectionTitle}
         </h2>
       </motion.div>
 

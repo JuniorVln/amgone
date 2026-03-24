@@ -2,8 +2,13 @@
 
 import { motion } from "framer-motion";
 import { CAR } from "@/data/carData";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/data/translations";
 
 export default function Footer() {
+  const { lang } = useLanguage();
+  const t = translations[lang].footer;
+
   return (
     <footer
       className="relative py-16 px-8 md:px-16"
@@ -32,7 +37,7 @@ export default function Footer() {
             className="text-amg-gold text-xs tracking-[0.3em] uppercase"
             style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
           >
-            {CAR.units} Units. All Sold.
+            {CAR.units} {t.unitsSold}
           </p>
           <p
             className="text-amg-silver/40 text-xs"
@@ -47,7 +52,7 @@ export default function Footer() {
             className="text-amg-silver/40 text-xs tracking-[0.15em]"
             style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
           >
-            &copy; {new Date().getFullYear()} Mercedes-AMG GmbH. All rights reserved.
+            &copy; {new Date().getFullYear()} Mercedes-AMG GmbH. {t.rights}
           </p>
           <p
             className="text-amg-silver/30 text-xs"
