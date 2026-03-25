@@ -246,7 +246,17 @@ function EngineeringPhase() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
+      {/* Readability overlay — darkens both sides where text lives */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.45) 28%, transparent 46%), " +
+            "linear-gradient(270deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.45) 28%, transparent 46%), " +
+            "linear-gradient(to top, rgba(10,10,10,0.6) 0%, transparent 25%)",
+        }}
+      />
+      <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16 relative z-10">
         <div className="flex-1 flex flex-col gap-4 max-w-xl">
           <motion.div {...fadeAnim(0)}>
             <AMGMark />
@@ -451,6 +461,15 @@ export default function AMGExperience({ scrollYProgress }: Props) {
 
   return (
     <div className="absolute inset-0 z-10 pointer-events-none scan-lines">
+      {/* Global vignette — always present, subtle corner darkening */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 82% 82% at 50% 50%, transparent 34%, rgba(10,10,10,0.36) 58%, rgba(10,10,10,0.68) 100%), linear-gradient(180deg, rgba(10,10,10,0.18) 0%, rgba(10,10,10,0.08) 22%, rgba(10,10,10,0.14) 65%, rgba(10,10,10,0.34) 100%)",
+          pointerEvents: "none",
+        }}
+      />
       <AnimatePresence mode="wait">
         {currentPhase === 0 && <HeroPhase key="hero" />}
         {currentPhase === 1 && <PerformancePhase key="perf" />}

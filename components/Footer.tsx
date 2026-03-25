@@ -48,6 +48,15 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col items-start md:items-end gap-2">
+          <a
+            href="https://volna.today"
+            target="_blank"
+            rel="noreferrer"
+            className="text-amg-gold text-xs tracking-[0.28em] uppercase transition-opacity duration-300 hover:opacity-100 opacity-90"
+            style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
+          >
+            VOLNA Inteligencia Criativa
+          </a>
           <p
             className="text-amg-silver/40 text-xs tracking-[0.15em]"
             style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}

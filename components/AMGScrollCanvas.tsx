@@ -144,7 +144,16 @@ export default function AMGScrollCanvas({
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.65) 100%)",
+            "radial-gradient(ellipse at center, rgba(0,0,0,0.06) 20%, rgba(0,0,0,0.3) 48%, rgba(0,0,0,0.78) 100%)",
+          }}
+      />
+
+      {/* Side readability overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[1]"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.54) 18%, rgba(10,10,10,0.16) 36%, rgba(10,10,10,0.08) 50%, rgba(10,10,10,0.16) 64%, rgba(10,10,10,0.54) 82%, rgba(10,10,10,0.82) 100%)",
         }}
       />
 
@@ -152,7 +161,7 @@ export default function AMGScrollCanvas({
       <div
         className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none z-[1]"
         style={{
-          background: "linear-gradient(to bottom, transparent, rgba(10,10,10,0.7))",
+          background: "linear-gradient(to bottom, rgba(10,10,10,0.04), rgba(10,10,10,0.82))",
         }}
       />
 
@@ -160,7 +169,7 @@ export default function AMGScrollCanvas({
       <div
         className="absolute top-0 left-0 right-0 h-24 pointer-events-none z-[1]"
         style={{
-          background: "linear-gradient(to top, transparent, rgba(10,10,10,0.4))",
+          background: "linear-gradient(to top, rgba(10,10,10,0.04), rgba(10,10,10,0.58))",
         }}
       />
 
